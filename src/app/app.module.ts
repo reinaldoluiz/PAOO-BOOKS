@@ -10,12 +10,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CabecallhoComponent } from './cabecallho/cabecallho.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { ClienteListaComponent } from './clientes/cliente-lista/cliente-lista.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClienteInserirComponent,
-    CabecallhoComponent
+    CabecallhoComponent,
+    ClienteListaComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

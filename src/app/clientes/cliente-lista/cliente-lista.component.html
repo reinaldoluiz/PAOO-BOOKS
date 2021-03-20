@@ -1,0 +1,8 @@
+<mat-accordian>
+  <mat-expansion-panel *ngFor="let cliente of clientes">
+    <mat-expansion-panel-header>Nome: {{cliente.nome}}</mat-expansion-panel-header>
+    <p>Fone: {{cliente.fone}}</p>
+    <p>Email: {{cliente.email}}</p>
+  </mat-expansion-panel>
+</mat-accordian>
+<p class="mat-body-1" style="text-align:center" *ngIf="clientes.length <=0">Nenhum Cliente Cadastrado</p>
