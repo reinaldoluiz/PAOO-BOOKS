@@ -1,0 +1,14 @@
+<mat-card>
+  <form (submit)="onAdicionarLivro(livroForm)" #livroForm="ngForm">
+    <mat-form-field>
+      <input type="text" matInput placeholder = "titulo" name="titulo" ngModel required minlength="4" #titulo="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput placeholder = "autor" name="autor" ngModel required minlength="4" #autor="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" matInput placeholder = "paginas" name="paginas" ngModel required minlength="4" #paginas="ngModel">
+    </mat-form-field>
+    <button color="primary" mat-raised-button>Inserir Livros</button>
+  </form>
+</mat-card>
