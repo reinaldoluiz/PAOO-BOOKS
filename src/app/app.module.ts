@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {HttpClientModule} from '@angular/common/http'
 
 import {FormsModule} from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -22,6 +23,7 @@ import { LivroInserirComponent } from './livros/livro-inserir/livro-inserir.comp
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule,
     MatToolbarModule,
     MatButtonModule,
