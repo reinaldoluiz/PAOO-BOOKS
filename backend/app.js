@@ -36,6 +36,7 @@ app.post('/api/livros', (req, res, next)=>{
     autor: req.body.autor,
     paginas: req.body.paginas
   })
+  livro.save()
   res.status(201).json({mensagem: 'Livro inserido'})
 })
 
