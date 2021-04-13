@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
-const Livros = require("./models/livro")
+const Livro = require("./models/livro")
 const env = require('./env')
 
 const dbName = "db_livros"
@@ -16,13 +16,11 @@ app.use(cors())
 
 const livros = [
   {
-    id: 158,
     titulo: '1984',
     autor: 'George Orwell',
     paginas: 150
   },
   {
-    id: 18,
     titulo: 'Animal farms',
     autor: 'George Orwell',
     paginas: 100
@@ -30,8 +28,7 @@ const livros = [
 ]
 
 app.post('/api/livros', (req, res, next)=>{
-  const livro = new Livros({
-    id: req.body.id,
+  const livro = new Livro({
     titulo: req.body.titulo,
     autor: req.body.autor,
     paginas: req.body.paginas
@@ -41,9 +38,11 @@ app.post('/api/livros', (req, res, next)=>{
 })
 
 app.get('/api/livros', (req, res, next)=>{
-  res.status(200).json({
-    mensagem: 'Tudo OK',
-    livros: livros
+  Livro.find().then(documents => {
+    res.status(200).json({
+      mensagem: "Tudo Ok",
+      livros: documents
+    })
   })
 })
 

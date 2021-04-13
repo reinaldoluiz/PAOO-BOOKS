@@ -22,11 +22,10 @@ export class LivroService
         })
     }
 
-    adicionarLivro( id: Number, titulo: string, autor: string,paginas: Number)
+    adicionarLivro( titulo: string, autor: string,paginas: Number)
     {
       const livro: Livro =
       {
-        id: id,
         titulo: titulo,
         autor: autor,
         paginas: paginas
