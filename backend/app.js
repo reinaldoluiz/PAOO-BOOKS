@@ -35,4 +35,7 @@ app.get('/api/livros', (req, res, next)=>{
   })
 })
 
+app.delete('/api/livros/:id', (req, res)=>{
+
+})
 module.exports = app;
