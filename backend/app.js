@@ -3,29 +3,18 @@ const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
 const Livro = require("./models/livro")
-const env = require('./env')
 
-const dbName = "db_livros"
+const userDB = process.env.MONGODB_USER
+const passDB = process.env.MONGODB_PASSWORD
+const clusterDB = process.env.MONGODB_CLUSTER
+const nameDB = process.env.MONGODB_DATABASE
 
-mongoose.connect(`mongodb+srv://paoo:${env.mongoPassword}@livros.uglfp.mongodb.net/${dbName}?retryWrites=true&w=majority`, {useNewUrlParser: true})
+mongoose.connect(`mongodb+srv://${userDB}:${passDB}@${clusterDB}.mongodb.net/${nameDB}?retryWrites=true&w=majority`, {useNewUrlParser: true})
 .then(()=>console.log('MongoDB: Conexao OK'))
-.catch(()=> console.log('MongoDB: Conexao NO OK'))
+.catch((erro)=> console.log('MongoDB: Conexao NO OK' + erro))
 
 app.use(express.json())
 app.use(cors())
-
-const livros = [
-  {
-    titulo: '1984',
-    autor: 'George Orwell',
-    paginas: 150
-  },
-  {
-    titulo: 'Animal farms',
-    autor: 'George Orwell',
-    paginas: 100
-  }
-]
 
 app.post('/api/livros', (req, res, next)=>{
   const livro = new Livro({
