@@ -28,8 +28,8 @@ export class LivroService
         })
       }))
       .subscribe(
-        (dados) => {
-          this.livros = dados.livros;
+        (livros) => {
+          this.livros = livros;
           this.listaLivrosAtualizado.next([...this.livros])
         })
     }
@@ -43,9 +43,10 @@ export class LivroService
         autor: autor,
         paginas: paginas
       }
-      this.httpClient.post<{mensagem: string}>('http://localhost:3000/api/livros', livro).subscribe
+      this.httpClient.post<{mensagem: string, id: string}>('http://localhost:3000/api/livros', livro).subscribe
       (
         (dados) => {
+          livro.id = dados.id
           this.livros.push(livro)
           this.listaLivrosAtualizado.next([...this.livros])
         }
@@ -55,5 +56,13 @@ export class LivroService
   getListaDeLivrosAtualizadosObservable()
   {
     return this.listaLivrosAtualizado.asObservable();
+  }
+  removerLivro(id: string): void{
+    this.httpClient.delete(`http://localhost:3000/api/livros/${id}`).subscribe(()=>{
+      this.livros = this.livros.filter((livro)=>{
+        return livro.id !== id
+      })
+      this.listaLivrosAtualizado.next([...this.livros])
+    })
   }
 }

@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LivroListaComponent } from './livros/livro-lista/livro-lista.component';
 import { LivroInserirComponent } from './livros/livro-inserir/livro-inserir.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { LivroInserirComponent } from './livros/livro-inserir/livro-inserir.comp
     LivroInserirComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
