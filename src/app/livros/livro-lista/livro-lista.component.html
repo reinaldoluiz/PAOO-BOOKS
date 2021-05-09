@@ -1,4 +1,5 @@
-<mat-accordion *ngIf="livros.length > 0">
+<mat-spinner *ngIf="estaCarregando"></mat-spinner>
+<mat-accordion *ngIf="livros.length > 0 && !estaCarregando">
   <mat-expansion-panel *ngFor = "let livro of livros">
     <mat-expansion-panel-header>
       Titulo: {{livro.titulo}}
@@ -6,10 +7,10 @@
     <p>Autor: {{livro.autor}}</p>
     <p>Número de paginas: {{livro.paginas}}</p>
     <mat-action-row>
-      <button mat-button color="primary"> Editar</button>
+      <button mat-button color="primary"[routerLink]="['/editar', livro.id]"> Editar</button>
       <button mat-button color="warn" (click)="onDelete(livro.id)"> Remover</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 
-<p class="mat-body-1" style="text-align: center;" *ngIf="livros.length <= 0">Nenhum Livro Cadastrado</p>
+<p class="mat-body-1" style="text-align: center;" *ngIf="livros.length <= 0  && !estaCarregando">Nenhum Livro Cadastrado</p>

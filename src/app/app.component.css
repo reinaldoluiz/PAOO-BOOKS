@@ -7,3 +7,10 @@ main{
 main>*{
   padding: 2%;
 }
+
+.menu{
+  flex: 1;
+  padding: 2%;
+  justify-content: space-around;
+  align-items: center;
+}

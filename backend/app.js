@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
-const Livro = require("./models/livro")
+const livroRoutes = require('./routes/livros')
 
 const userDB = process.env.MONGODB_USER
 const passDB = process.env.MONGODB_PASSWORD
@@ -16,32 +16,6 @@ mongoose.connect(`mongodb+srv://${userDB}:${passDB}@${clusterDB}.mongodb.net/${n
 app.use(express.json())
 app.use(cors())
 
-app.post('/api/livros', (req, res, next)=>{
-  const livro = new Livro({
-    titulo: req.body.titulo,
-    autor: req.body.autor,
-    paginas: req.body.paginas
-  })
-  livro.save().then(livroInserido => {
-    res.status(201).json({
-      mensagem: 'Livro inserido',
-    id: livroInserido._id})
-  })
+app.use('/api/livros', livroRoutes)
 
-})
-
-app.get('/api/livros', (req, res, next)=>{
-  Livro.find().then(documents => {
-    res.status(200).json({
-      mensagem: "Tudo Ok",
-      livros: documents
-    })
-  })
-})
-
-app.delete('/api/livros/:id', (req, res)=>{
-  Livro.deleteOne({_id: req.params.id}).then((resultado)=>{
-    res.status(200).json({mensagem: 'Livro Removido'})
-  })
-})
-module.exports = app;
+module.exports = app

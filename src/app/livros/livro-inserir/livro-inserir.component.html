@@ -1,14 +1,15 @@
 <mat-card>
-  <form (submit)="onAdicionarLivro(livroForm)" #livroForm="ngForm">
+  <mat-spinner *ngIf="estaCarregando"></mat-spinner>
+  <form *ngIf="!estaCarregando" (submit)="onSalvarLivro(livroForm)" #livroForm="ngForm">
     <mat-form-field>
-      <input type="text" matInput placeholder = "titulo" name="titulo" ngModel required minlength="4" #titulo="ngModel">
+      <input type="text" matInput placeholder = "titulo" name="titulo" ngModel required minlength="4" #titulo="ngModel" [ngModel]="livro?.titulo">
     </mat-form-field>
     <mat-form-field>
-      <input type="text" matInput placeholder = "autor" name="autor" ngModel required minlength="4" #autor="ngModel">
+      <input type="text" matInput placeholder = "autor" name="autor" ngModel required minlength="4" #autor="ngModel"[ngModel]="livro?.autor">
     </mat-form-field>
     <mat-form-field>
-      <input type="number" matInput placeholder = "paginas" name="paginas" ngModel required minlength="4" #paginas="ngModel">
+      <input type="number" matInput placeholder = "paginas" name="paginas" ngModel required minlength="4" #paginas="ngModel"[ngModel]="livro?.paginas">
     </mat-form-field>
-    <button color="primary" mat-raised-button>Inserir Livros</button>
+    <button color="primary" mat-raised-button>Salvar Livro</button>
   </form>
 </mat-card>

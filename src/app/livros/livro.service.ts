@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Livro} from './livro.model';
 import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {map} from  "rxjs/operators";
+import {map, subscribeOn} from  "rxjs/operators";
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class LivroService
@@ -10,7 +11,10 @@ export class LivroService
     private livros: Livro[] = [];
     private listaLivrosAtualizado = new Subject <Livro[]> ();
 
-    constructor (private httpClient: HttpClient){
+    constructor (
+      private httpClient: HttpClient,
+      private router: Router
+      ){
 
     }
 //teste
@@ -49,6 +53,7 @@ export class LivroService
           livro.id = dados.id
           this.livros.push(livro)
           this.listaLivrosAtualizado.next([...this.livros])
+          this.router.navigate(['/'])
         }
       )
     }
@@ -57,12 +62,30 @@ export class LivroService
   {
     return this.listaLivrosAtualizado.asObservable();
   }
+
+
+  getLivro(idLivro: string){
+    return this.httpClient.get<{_id: string,titulo: string, autor: string,paginas: Number}>(`http://localhost:3000/api/livros/${idLivro}`)
+  }
+
   removerLivro(id: string): void{
     this.httpClient.delete(`http://localhost:3000/api/livros/${id}`).subscribe(()=>{
       this.livros = this.livros.filter((livro)=>{
         return livro.id !== id
       })
       this.listaLivrosAtualizado.next([...this.livros])
+    })
+  }
+
+  atualizarLivro(id: string,titulo: string, autor: string,paginas: Number){
+    const livro: Livro = {id, titulo, autor, paginas}
+    this.httpClient.put(`http://localhost:3000/api/livros/${id}`, livro).subscribe((res)=>{
+      const copia = [...this.livros]
+      const indice = copia.findIndex(liv => liv.id === livro.id)
+      copia[indice] = livro
+      this.livros = copia
+      this.listaLivrosAtualizado.next([...this.livros])
+      this.router.navigate(['/'])
     })
   }
 }
